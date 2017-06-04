@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List of all notes</title>
+	<link rel="shortcut icon" href="images/icon.png">
+	<style type="text/css">
+		body{
+            text-align: center; 
+            padding: 50px;
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+            background-color: #51c19e ;
+        }
+        p{
+            font-size: 1.5vw ;
+        }
+        ul li{
+        	padding: 20px ;
+        	font-size: 1.5vw;
+        }
+        ul{
+        	list-style-type: circle;
+        }a{
+        	text-decoration: none ;
+            color: yellow ;
+        }
+        .c1{
+            color: green ;
+        }
+        .c2{
+            color: yellow ;
+        }
+        .c3{
+            color: red;
+        }
+        a:hover{
+        	color: white ;
+        	transition-duration: 0.3s ;
+        }
+        @media only screen and (max-device-width : 700px){
+            h1{
+              font-size: 10vw ;
+            }
+            .note{
+              width:75% ;
+              font-size: 4vw ;
+              height: 40%;
+            }
+            p, input,ul li{
+              font-size: 6vw ;
+            }
+            input{
+            border-radius: 10px ;
+          }
+        }
+	</style>
+</head>
+<body>
+<p>Here is the list of notes:</p>
+<p><input type="button" class="sort" value="Sort"> (High priority on the top)</p>
+ <ul class="listHolder">
+	 
+ </ul>
+ <p>In case you want to edit the notes.Please note the number in parenthesis and move to this <a href="edit.html">link</a></p>
+ <p>To delete a note, Please note the number in parenthesis and move to this <a href="delete.html">link</a></p>
+ <script type="text/javascript">
+     var sort = document.querySelector('.sort') ;
+     var listHolder = document.querySelector('.listHolder') ;
+     var counter = 0 ;
+     for( key in localStorage ){
+        var list = document.createElement('li')
+        var anchor = document.createElement('a')
+        counter++ ; 
+        var note =localStorage.getItem(key).slice(0,localStorage.getItem(key).length-1) 
+        var priority = localStorage.getItem(key)[localStorage.getItem(key).length-1]
+        list.setAttribute('class','c'+priority)
+        list.innerHTML = note +'('+key+')';
+
+        listHolder.appendChild(list)
+        if(counter >= localStorage.length-1)
+            break ;
+     }
+     sort.onclick = function(){
+        var lists = document.querySelectorAll('ul li')
+        listHolder.innerHTML = "";
+        for(var i=0 ;i <lists.length ; i++){
+            var priority = lists[i].getAttribute('class').slice(1) ;
+            if(priority == 3)
+               listHolder.appendChild(lists[i])
+        }
+        for(var i=0 ;i <lists.length ; i++){
+            var priority = lists[i].getAttribute('class').slice(1) ;
+            if(priority == 2)
+               listHolder.appendChild(lists[i])
+        }
+        for(var i=0 ;i <lists.length ; i++){
+            var priority = lists[i].getAttribute('class').slice(1) ;
+            if(priority == 1)
+               listHolder.appendChild(lists[i])
+        }
+     }
+ </script>
+</body>
+</html>

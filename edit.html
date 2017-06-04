@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Notes</title>
+	<link rel="shortcut icon" href="images/icon.png">
+	<style type="text/css">
+			body{
+			  text-align: center; 
+			  padding: 50px;
+			  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+			  background-color: #51c19e ;
+			}
+
+			a {
+			  color: #00B7FF;
+			}
+			#editNote{
+				width: 200px;
+				height: 100px;
+				border:none;
+				border-radius: 5px;
+				border-bottom-right-radius: 10px;
+				margin: 20px auto ;
+				font-family: monospace; 
+			}
+			#cancel{
+				margin:20px ;
+			}
+			.pr{
+            float:  left; 
+            margin-left: 1%;
+            font-size: 1.5vw ;
+            border-radius: 5px; 
+            padding: 0.5vw 1vw ;
+	          }
+	          .pr:hover{
+	            cursor: pointer; 
+	            box-shadow: 5px 5px 5px #888888;
+	          }
+	          .red{
+	            margin-left: 39.5%;
+	            background-color: red ;
+	          }
+	          .yellow{
+	            background-color: yellow ;
+	          }
+	          .green{
+	            background-color: green ;
+
+	          }
+	          .dummy{
+	          	clear: both ;
+	          }
+	          .sNo{
+	          	width: 5%;
+	          }
+	          label p{
+	          	padding-top: 1%;
+	          }
+			@media only screen and (max-device-width : 700px){
+            h1{
+              font-size: 10vw ;
+            }
+            #editNote{
+              width:75% ;
+              font-size: 4vw ;
+              height: 40%;
+            }
+            p, input{
+              font-size: 6vw ;
+            }
+            input{
+            border-radius: 10px ;
+            }
+            .pr{
+              font-size: 4vw ;
+              margin-left: 1%;
+            }
+            .red{
+              margin-left: 28%;
+            }
+          }
+	</style>
+</head>
+<body>
+	<!--Variable here-->
+	 <label><p>Serial No. of the text you want to edit:</p><input type="text" class="sNo"></label>
+	<div class="priority">
+      <p>Edit Priority</p>
+      <div class="colors">
+        <div class="pr red">High</div>
+        <div class="pr yellow">Medium</div>
+        <div class="pr green">Low</div>
+      </div>
+    </div>
+    <div class="dummy"></div>
+   
+
+    <div class="dummy"></div>
+    	<p>Edit note:</p>
+		<textarea id="editNote" name="content"></textarea>
+		<br>
+		<input type="text" name="priority" style="display: none;" class="priorityValue" value="1">
+		<input type="submit" value="Save" id="save">
+		<br>
+		<input type="submit" value="Cancel" id="cancel">
+<script type="text/javascript">
+
+		  var editNote = document.getElementById('editNote')
+		  var red = document.querySelector('.red')
+	      var yellow = document.querySelector('.yellow')
+	      var green = document.querySelector('.green')
+	      var priorityValue = document.querySelector('.priorityValue')
+	      var sNo = document.querySelector('.sNo')
+	      var save = document.getElementById('save')
+	      red.onclick = function(){
+	        priorityValue.value = 3 ;
+	      }
+	      yellow.onclick = function(){
+	        priorityValue.value = 2 ;
+	      }
+	      green.onclick = function(){
+	        priorityValue.value = 1 ;
+	      }
+	      sNo.onchange = function(){
+	      	editNote.value = "";
+	      	editNote.value = localStorage.getItem(sNo.value).slice(0,localStorage.getItem(sNo.value).length-1) ;
+	      	priorityValue.value = localStorage.getItem(sNo.value)[localStorage.getItem(sNo.value).length-1]
+	      }
+	      save.onclick = function(){
+	      	if(editNote.value != ""){
+	      		var key = sNo.value.toString() ;
+	      		var value = (editNote.value + priorityValue.value).toString() ;
+	      		localStorage.setItem(key , value)
+	      	}
+	      		editNote.value = ""
+	      }
+
+
+		
+
+</script>
+</body>
+</html>

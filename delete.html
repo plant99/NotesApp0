@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NotesEasy</title>
+    <link rel="shortcut icon" href="images/icon.png">
+    <style type="text/css">
+      body {
+            text-align: center; 
+            padding: 50px;
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+            background-color: #51c19e ;
+          }
+
+          a {
+            color: brown;
+            text-decoration: none ;
+          }
+          .note{
+            border:none;
+            border-radius: 5px;
+            border-bottom-right-radius: 10px;
+            margin: 20px auto ;
+            font-family: monospace; 
+          }
+          .pr{
+            float:  left; 
+            margin-left: 1%;
+            font-size: 1.5vw ;
+            border-radius: 5px; 
+            padding: 0.5vw 1vw ;
+          }
+          .pr:hover{
+            cursor: pointer; 
+            box-shadow: 5px 5px 5px #888888;
+          }
+          .red{
+            margin-left: 39.5%;
+            background-color: red ;
+          }
+          .yellow{
+            background-color: yellow ;
+          }
+          .green{
+            background-color: green ;
+          }
+          input{
+            font-size: 1.5vw;
+            border-radius: 6px ;
+          }
+          .mainBox{
+            clear: both ;
+          }
+          .sNo{
+            width: 5% ;
+          }
+          textarea{
+            margin-top: 25px ;
+          }
+          input{
+            margin-top: 10px;
+          }
+          @media only screen and (max-device-width : 700px){
+            h1{
+              font-size: 10vw ;
+            }
+            .note{
+              width:75% ;
+              font-size: 4vw ;
+              height: 40%;
+            }
+            p, input{
+              font-size: 6vw ;
+            }
+            input{
+            border-radius: 10px ;
+            font-size: 6vw ;
+            }
+            .pr{
+              font-size: 4vw ;
+              margin-left: 1%;
+            }
+            .red{
+              margin-left: 28%;
+            }
+          }
+    </style>
+  </head>
+  <body>
+      <p>Enter the serial No of the note you want to delete1</p>
+      <input type="text" name="sNo" class="sNo">
+      <br>
+      <textarea id="editNote" name="content"></textarea>
+      <br> 
+      <input type="button" name="delete1" value="Delete1" id="delete1">
+    <script type="text/javascript">
+      var editNote = document.getElementById('editNote')
+      var sNo = document.querySelector('.sNo')
+      var delete1 = document.getElementById('delete1')
+      sNo.onchange = function(){
+          editNote.value = "";
+          editNote.value = localStorage.getItem(sNo.value).slice(0,localStorage.getItem(sNo.value).length-1) ;
+      }
+      delete1.onclick = function(){
+        localStorage.removeItem(sNo.value.toString())
+      }
+    </script>
+  </body>
+</html>
